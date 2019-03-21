@@ -107,14 +107,14 @@
                                                 <constraint firstAttribute="width" constant="150" id="whg-mH-AHC"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COLLECTION TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXg-n9-WC9">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="COLLECTION TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXg-n9-WC9">
                                             <rect key="frame" x="8" y="174" width="327" height="25.666666666666657"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnr-Cx-cyI">
-                                            <rect key="frame" x="8" y="215.66666666666666" width="327" height="81.333333333333343"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnr-Cx-cyI">
+                                            <rect key="frame" x="8" y="215.66666666666663" width="327" height="81.333333333333371"/>
                                             <string key="text">body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body body </string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -123,6 +123,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="lnr-Cx-cyI" secondAttribute="bottom" constant="8" id="2Td-Kk-fDu"/>
                                         <constraint firstItem="0dO-ql-t8Y" firstAttribute="centerX" secondItem="z2b-Tz-SDV" secondAttribute="centerX" id="I4h-kb-6qm"/>
                                         <constraint firstItem="gXg-n9-WC9" firstAttribute="top" secondItem="0dO-ql-t8Y" secondAttribute="bottom" constant="16" id="M4p-Ss-LzS"/>
                                         <constraint firstItem="lnr-Cx-cyI" firstAttribute="leading" secondItem="z2b-Tz-SDV" secondAttribute="leading" constant="8" id="PV4-gh-FHM"/>
@@ -151,7 +152,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRODUCT NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMi-UY-Atu">
-                                                    <rect key="frame" x="28.666666666666671" y="308" width="132" height="21"/>
+                                                    <rect key="frame" x="28.666666666666671" y="308" width="132" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -167,6 +168,7 @@
                                                 <constraint firstItem="IMi-UY-Atu" firstAttribute="leading" secondItem="O1G-dO-PGq" secondAttribute="leading" constant="7" id="FQ0-Ma-5VM"/>
                                                 <constraint firstItem="IMi-UY-Atu" firstAttribute="top" secondItem="O1G-dO-PGq" secondAttribute="bottom" constant="8" id="JuO-Jf-UKF"/>
                                                 <constraint firstItem="KYU-JD-S52" firstAttribute="trailing" secondItem="O1G-dO-PGq" secondAttribute="trailing" constant="-7" id="KpO-wg-vk7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="IMi-UY-Atu" secondAttribute="bottom" constant="16" id="Rod-jS-McL"/>
                                                 <constraint firstItem="O1G-dO-PGq" firstAttribute="top" secondItem="PsF-bP-bPM" secondAttribute="top" id="aiO-gU-ccb"/>
                                                 <constraint firstItem="KYU-JD-S52" firstAttribute="top" secondItem="O1G-dO-PGq" secondAttribute="bottom" constant="8" id="mnh-cH-tIU"/>
                                                 <constraint firstItem="O1G-dO-PGq" firstAttribute="centerX" secondItem="PsF-bP-bPM" secondAttribute="centerX" id="zjZ-nN-hKI"/>

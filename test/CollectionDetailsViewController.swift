@@ -63,12 +63,25 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
         }
         
     }
+    
+    override func viewDidLayoutSubviews() {
+        guard let headerView = detailsTableView.tableHeaderView else {
+            return
+        }
+        let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if headerView.frame.size.height != size.height {
+            headerView.frame.size.height = size.height
+            detailsTableView.tableHeaderView = headerView
+            detailsTableView.layoutIfNeeded()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return products.count
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 400
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 400
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
