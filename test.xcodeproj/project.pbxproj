@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		05E81E809C16180D1E37EB6E /* Pods_testTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06E1D50F368EB41EC5CC573 /* Pods_testTests.framework */; };
 		45A52D3E02FE6C6A5EAC8FD3 /* Pods_testUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBBEC2915C47000A6CB4B893 /* Pods_testUITests.framework */; };
+		499C5687224417610096FC76 /* UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499C5686224417610096FC76 /* UIHelpers.swift */; };
 		49A4F9DD2240A4A6000A0F72 /* CustomCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F9DC2240A4A6000A0F72 /* CustomCollectionTableViewCell.swift */; };
-		49A4F9DF2240A6CD000A0F72 /* CollectionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F9DE2240A6CD000A0F72 /* CollectionClass.swift */; };
+		49A4F9DF2240A6CD000A0F72 /* MainClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F9DE2240A6CD000A0F72 /* MainClasses.swift */; };
 		49A4F9E12241C0DE000A0F72 /* CollectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F9E02241C0DE000A0F72 /* CollectionDetailsViewController.swift */; };
 		49A4F9E32241EEA3000A0F72 /* CollectionDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F9E22241EEA3000A0F72 /* CollectionDetailsTableViewCell.swift */; };
 		49A4F9E52241F47E000A0F72 /* ShopifyFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4F9E42241F47E000A0F72 /* ShopifyFetcher.swift */; };
@@ -44,8 +45,9 @@
 /* Begin PBXFileReference section */
 		122B69288C89A137F23C5261 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
 		1A94A0BCEEC41FE2C53CF11F /* Pods-testUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testUITests.debug.xcconfig"; path = "Target Support Files/Pods-testUITests/Pods-testUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		499C5686224417610096FC76 /* UIHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpers.swift; sourceTree = "<group>"; };
 		49A4F9DC2240A4A6000A0F72 /* CustomCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionTableViewCell.swift; sourceTree = "<group>"; };
-		49A4F9DE2240A6CD000A0F72 /* CollectionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionClass.swift; sourceTree = "<group>"; };
+		49A4F9DE2240A6CD000A0F72 /* MainClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainClasses.swift; sourceTree = "<group>"; };
 		49A4F9E02241C0DE000A0F72 /* CollectionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailsViewController.swift; sourceTree = "<group>"; };
 		49A4F9E22241EEA3000A0F72 /* CollectionDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		49A4F9E42241F47E000A0F72 /* ShopifyFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyFetcher.swift; sourceTree = "<group>"; };
@@ -125,14 +127,15 @@
 			isa = PBXGroup;
 			children = (
 				49D163302221C13B005F3775 /* AppDelegate.swift */,
-				49D163322221C13B005F3775 /* CustomCollectionsViewController.swift */,
-				49A4F9E22241EEA3000A0F72 /* CollectionDetailsTableViewCell.swift */,
-				49A4F9DC2240A4A6000A0F72 /* CustomCollectionTableViewCell.swift */,
 				49D163342221C13B005F3775 /* Main.storyboard */,
+				49D163322221C13B005F3775 /* CustomCollectionsViewController.swift */,
 				49A4F9E02241C0DE000A0F72 /* CollectionDetailsViewController.swift */,
-				49A4F9DE2240A6CD000A0F72 /* CollectionClass.swift */,
-				49D163372221C13D005F3775 /* Assets.xcassets */,
+				49A4F9DC2240A4A6000A0F72 /* CustomCollectionTableViewCell.swift */,
+				49A4F9E22241EEA3000A0F72 /* CollectionDetailsTableViewCell.swift */,
+				49A4F9DE2240A6CD000A0F72 /* MainClasses.swift */,
+				499C5686224417610096FC76 /* UIHelpers.swift */,
 				49A4F9E42241F47E000A0F72 /* ShopifyFetcher.swift */,
+				49D163372221C13D005F3775 /* Assets.xcassets */,
 				49D163392221C13D005F3775 /* LaunchScreen.storyboard */,
 				49D1633C2221C13D005F3775 /* Info.plist */,
 			);
@@ -386,8 +389,9 @@
 				49A4F9E32241EEA3000A0F72 /* CollectionDetailsTableViewCell.swift in Sources */,
 				49A4F9DD2240A4A6000A0F72 /* CustomCollectionTableViewCell.swift in Sources */,
 				49D163332221C13B005F3775 /* CustomCollectionsViewController.swift in Sources */,
+				499C5687224417610096FC76 /* UIHelpers.swift in Sources */,
 				49A4F9E12241C0DE000A0F72 /* CollectionDetailsViewController.swift in Sources */,
-				49A4F9DF2240A6CD000A0F72 /* CollectionClass.swift in Sources */,
+				49A4F9DF2240A6CD000A0F72 /* MainClasses.swift in Sources */,
 				49D163312221C13B005F3775 /* AppDelegate.swift in Sources */,
 				49A4F9E52241F47E000A0F72 /* ShopifyFetcher.swift in Sources */,
 			);

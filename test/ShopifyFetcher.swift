@@ -103,7 +103,7 @@ public func parseCollections(data: NSDictionary) -> ([CollectionClass]) {
         let collectionInstance = CollectionClass()
         collectionInstance.body = collection["body_html"] as? String
         collectionInstance.id = String(collection["id"] as? Int ?? 0)
-        collectionInstance.title = collection["title"] as? String
+        collectionInstance.title = (collection["title"] as? String ?? "").capitalized
         
         if let image_data = collection["image"] as? [String: Any] {
             if let image_url = image_data["src"] as? String {

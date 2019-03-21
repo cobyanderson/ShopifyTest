@@ -18,6 +18,7 @@ class CustomCollectionsViewController: UIViewController, UITableViewDataSource, 
             //when collections are added reload the table view on the main thread
             DispatchQueue.main.async {
                 self.CollectionsTableView.reloadData()
+                
             }
         }
     }
@@ -33,6 +34,7 @@ class CustomCollectionsViewController: UIViewController, UITableViewDataSource, 
             }
             self.collections = parseCollections(data: response)
         }
+        
     }
 
     
@@ -43,7 +45,12 @@ class CustomCollectionsViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.CollectionsTableView.dequeueReusableCell(withIdentifier: "collectionCell") as! CustomCollectionTableViewCell
         cell.collectionTitle.text = collections[indexPath.row].title ?? ""
+        cell.backgroundColor = UIColor.random()
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

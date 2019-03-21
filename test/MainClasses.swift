@@ -1,5 +1,5 @@
 //
-//  CollectionClass.swift
+//  MainClasses.swift
 //  test
 //
 //  Created by Samuel Coby Anderson on 3/18/19.

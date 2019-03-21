@@ -12,6 +12,7 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
     
     
     @IBOutlet weak var detailsTableView: UITableView!
+    
     @IBOutlet weak var collectionImage: UIImageView!
     @IBOutlet weak var collectionTitle: UILabel!
     @IBOutlet weak var collectionBody: UILabel!
@@ -33,8 +34,11 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
         self.detailsTableView.dataSource = self
         
         
-        self.collectionTitle.text = collectionObject?.title ?? ""
+        self.collectionTitle.text = collectionObject?.title?.uppercased() ?? ""
         self.collectionBody.text = collectionObject?.body ?? ""
+        
+        //removes the separators by making them invisible
+        self.detailsTableView.separatorColor = UIColor.clear
         
         if let url = collectionObject?.src {
             downloadImage(url: url) { (data) in
@@ -50,19 +54,28 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
             }
             
             let collects = (parseCollects(data: response))
-            print (collects)
             
             getProducts(productIds: collects, success: { (response) in
                 guard let response = response else {
                     return
                 }
 
-                self.products = (parseProducts(data: response))
-                print (self.products)
+                self.products = parseProducts(data: response)
             })
         }
         
     }
+//    func downloadImages(products: [ProductClass]) {
+//        for product in products {
+//            if let src = product.src {
+//                downloadImage(url: src) { (data) in
+//                    product.image = UIImage(data: data)
+//                    self.products.append(product)
+//                }
+//            }
+//        }
+//
+//    }
     
     override func viewDidLayoutSubviews() {
         guard let headerView = detailsTableView.tableHeaderView else {
@@ -79,19 +92,47 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return products.count
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 400
-//    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = detailsTableView.dequeueReusableCell(withIdentifier: "productCell") as! CollectionDetailsTableViewCell
         cell.productName.text = products[indexPath.row].title
         cell.productStock.text = String(products[indexPath.row].inventory ?? 0)
-        cell.productImage.image = self.collectionImage.image
+        
+        // if there's no product image, use the collection image
+        cell.productImage.image = self.collectionImage.image!
+        if let image = products[indexPath.row].image {
+            cell.productImage.image = image
+        }
+        else if let src = products[indexPath.row].src {
+            downloadImage(url: src) { (data) in
+                self.products[indexPath.row].image = UIImage(data: data)
+                // save the image
+                cell.productImage.image = self.products[indexPath.row].image
+                // update the default image of the cell with the new one
+                self.UpdateCell(i: indexPath)
+            }
+        }
+        cell.productImage.backgroundColor = UIColor.random()
+//        cell.contentView.backgroundColor = UIColor.random()
         
         return cell
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        CellAnimator.animate(cell: cell)
+    }
+    
+    func UpdateCell(i: IndexPath) {
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.detailsTableView.beginUpdates()
+            self.detailsTableView.reloadRows(
+                at: [i],
+                with: .fade)
+            self.detailsTableView.endUpdates()
+        })
+    }
+  
     
     
 }
