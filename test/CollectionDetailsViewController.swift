@@ -18,9 +18,21 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
     
     var collectionObject: CollectionClass?
     
+    var products: [ProductClass] = [] {
+        didSet{
+            //when collections are added reload the table view on the main thread
+            DispatchQueue.main.async {
+                self.detailsTableView.reloadData()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.detailsTableView.delegate = self
+        self.detailsTableView.dataSource = self
+        
+        
         self.collectionTitle.text = collectionObject?.title ?? ""
         self.collectionBody.text = collectionObject?.body ?? ""
         
@@ -29,14 +41,43 @@ class CollectionDetailsViewController: UIViewController, UITableViewDataSource, 
                 self.collectionImage.image = UIImage(data: data)
             }
         }
+        guard let id = collectionObject?.id else {
+            return
+        }
+        getCollects(collection_id: id) { (response) in
+            guard let response = response else {
+                return
+            }
+            
+            let collects = (parseCollects(data: response))
+            print (collects)
+            
+            getProducts(productIds: collects, success: { (response) in
+                guard let response = response else {
+                    return
+                }
+
+                self.products = (parseProducts(data: response))
+                print (self.products)
+            })
+        }
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return products.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 400
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        let cell = detailsTableView.dequeueReusableCell(withIdentifier: "productCell") as! CollectionDetailsTableViewCell
+        cell.productName.text = products[indexPath.row].title
+        cell.productStock.text = String(products[indexPath.row].inventory ?? 0)
+        cell.productImage.image = self.collectionImage.image
+        
+        return cell
     }
     
     

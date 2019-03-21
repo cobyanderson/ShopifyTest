@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public func getCollections(success: @escaping ((_ collectionsDictionaries: NSDictionary?) -> Void)) {
+public func getCollections(success: @escaping ((NSDictionary?) -> Void)) {
     
     let formattedUrl = URL(string: "https://shopicruit.myshopify.com/admin/custom_collections.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6")
     
@@ -32,6 +32,61 @@ public func getCollections(success: @escaping ((_ collectionsDictionaries: NSDic
         
     }).resume()
 }
+
+public func getCollects(collection_id: String, success: @escaping ((NSDictionary?) -> Void)) {
+    
+    let formattedUrl = URL(string: "https://shopicruit.myshopify.com/admin/collects.json?collection_id=\(collection_id)&page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6")
+    
+    let session = URLSession.shared
+    let request = URLRequest(url: formattedUrl!)
+    
+    session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+        
+        guard error == nil else {
+            print ("Error getting collects")
+            return
+        }
+        
+        do {
+            let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0))
+            success(json as! NSDictionary)
+        } catch {
+            print ("Error converting collects data")
+        }
+        
+    }).resume()
+}
+
+public func getProducts(productIds: [String], success: @escaping ((NSDictionary?) -> Void)) {
+    
+    var formattedString = ""
+    for id in productIds {
+        formattedString = formattedString + id + ","
+    }
+    
+    let formattedUrl = URL(string: "https://shopicruit.myshopify.com/admin/products.json?ids=\(formattedString)&page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6")
+    
+    let session = URLSession.shared
+    let request = URLRequest(url: formattedUrl!)
+    
+    session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+        
+        guard error == nil else {
+            print ("Error getting products")
+            return
+        }
+        
+        do {
+            let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0))
+            success(json as! NSDictionary)
+        } catch {
+            print ("Error converting product data")
+        }
+        
+    }).resume()
+}
+
+
     
 public func parseCollections(data: NSDictionary) -> ([CollectionClass]) {
     var collectionObjects: [CollectionClass] = []
@@ -47,7 +102,7 @@ public func parseCollections(data: NSDictionary) -> ([CollectionClass]) {
         }
         let collectionInstance = CollectionClass()
         collectionInstance.body = collection["body_html"] as? String
-        collectionInstance.id = collection["id"] as? Int
+        collectionInstance.id = String(collection["id"] as? Int ?? 0)
         collectionInstance.title = collection["title"] as? String
         
         if let image_data = collection["image"] as? [String: Any] {
@@ -61,6 +116,69 @@ public func parseCollections(data: NSDictionary) -> ([CollectionClass]) {
     return collectionObjects
     
 }
+
+public func parseCollects(data: NSDictionary) -> ([String]) {
+    var productIds: [String] = []
+    
+    guard let collects = data["collects"] as? [Any] else {
+        print ("error")
+        return productIds
+    }
+    for collect in collects {
+        guard let collect = collect as? [String: Any] else {
+            print ("error converting collects")
+            return productIds
+        }
+        if let productId = collect["product_id"] as? Int {
+            productIds.append(String(productId))
+        }
+    }
+    return productIds
+    
+}
+
+public func parseProducts(data: NSDictionary) -> ([ProductClass]) {
+    var productObjects: [ProductClass] = []
+    
+    guard let products = data["products"] as? [Any] else {
+        print ("error parsing products")
+        return productObjects
+    }
+    for product in products {
+        if let product = product as? [String: Any] {
+            
+            var productObject = ProductClass()
+            
+            if let title = product["title"] as? String {
+                productObject.title = title
+            }
+            
+            if let variants = product["variants"] as? [[String : Any]] {
+                var totalInventory = 0
+                for variant in variants {
+                    if let inventory = variant["inventory_quantity"] as? Int {
+                        totalInventory += inventory
+                    }
+                }
+                productObject.inventory = totalInventory
+                
+            }
+            
+            if let image = product["image"] as? [String : Any] {
+                if let src = image["src"] as? String {
+                    productObject.src = src
+                }
+            }
+            productObjects.append(productObject)
+            
+        }
+    }
+    return productObjects
+    
+}
+
+
+
 
 public func downloadImage(url: String, success: @escaping (Data) -> Void)  {
     
